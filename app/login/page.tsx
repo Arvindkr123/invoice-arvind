@@ -3,6 +3,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import React from 'react'
+import { signIn } from '../utils/auth'
 
 function Login() {
     return (
@@ -13,10 +14,14 @@ function Login() {
                     <CardDescription>Enter your email below to login in to your account</CardDescription>
                 </CardHeader>
                 <CardContent>
-                    <form className='flex flex-col gap-y-4'>
+                    <form action={async (formData) => {
+                        "use server"
+                        await signIn("nodemailer", formData)
+                    }}
+                        className='flex flex-col gap-y-4'>
                         <div className='flex flex-col gap-y-2'>
                             <Label>Email</Label>
-                            <Input placeholder='hello@hello.com' />
+                            <Input type='email' name='email' required placeholder='hello@hello.com' />
                         </div>
                         <Button>Submit</Button>
                     </form>
